@@ -15,6 +15,7 @@ class DepartamentoController extends Controller
     public function index()
     {
         //
+        return view('departamento.mostrardepartamento');
     }
 
     /**
@@ -25,6 +26,7 @@ class DepartamentoController extends Controller
     public function create()
     {
         //
+        return view('departamento.creardepartamento');
     }
 
     /**
@@ -36,6 +38,30 @@ class DepartamentoController extends Controller
     public function store(Request $request)
     {
         //
+        
+
+        $campos=[
+            'Codigo'=>'required|string|max:100',
+            'Nombre'=>'required|string|max:100',
+            'Abreviacion'=>'required|string|max:100',
+            
+
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido'          
+
+        ];
+
+        $this->validate($request,$campos,$mensaje);
+
+
+        //$datosEmpleado = request()->all();
+        $datosDepartamento = request()->except('_token');
+
+
+        Departamento::insert($datosDepartamento);
+        //return response()->json($datosEmpleado);
+        return redirect('departamento')->with('mensaje','Departamento agregado con éxito');
     }
 
     /**

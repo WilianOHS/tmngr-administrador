@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepartamentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+/*
+Route::get('/departamento', function () {
+    return view('departamento.mostrardepartamento');
+});
+
+Route::get('/departamento/creardepartamento',[DepartamentoController::class,'create']);
+*/
+
+Route::resource('departamento',DepartamentoController::class);
