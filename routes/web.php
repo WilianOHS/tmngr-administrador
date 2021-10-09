@@ -17,12 +17,11 @@ use App\Http\Controllers\DepartamentoController;
 Route::get('/', function () {
     return view('welcome');
 });
-/*
-Route::get('/departamento', function () {
-    return view('departamento.mostrardepartamento');
-});
 
-Route::get('/departamento/creardepartamento',[DepartamentoController::class,'create']);
-*/
+Auth::routes();
 
-Route::resource('departamento',DepartamentoController::class);
+//Route::resource('departamento', App\Http\Controllers\DepartamentoController::class);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('departamento', DepartamentoController::class);

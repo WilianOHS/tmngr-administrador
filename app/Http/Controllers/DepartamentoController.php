@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 
+/**
+ * Class DepartamentoController
+ * @package App\Http\Controllers
+ */
 class DepartamentoController extends Controller
 {
     /**
@@ -14,8 +18,10 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        //
-        return view('departamento.mostrardepartamento');
+        $departamentos = Departamento::paginate();
+
+        return view('departamento.index', compact('departamentos'))
+            ->with('i', (request()->input('page', 1) - 1) * $departamentos->perPage());
     }
 
     /**
@@ -25,87 +31,79 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        //
-        return view('departamento.creardepartamento');
+        $departamento = new Departamento();
+        return view('departamento.create', compact('departamento'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
-        
+        request()->validate(Departamento::$rules);
 
-        $campos=[
-            'Codigo'=>'required|string|max:100',
-            'Nombre'=>'required|string|max:100',
-            'Abreviacion'=>'required|string|max:100',
-            
+        $departamento = Departamento::create($request->all());
 
-        ];
-        $mensaje=[
-            'required'=>'El :attribute es requerido'          
-
-        ];
-
-        $this->validate($request,$campos,$mensaje);
-
-
-        //$datosEmpleado = request()->all();
-        $datosDepartamento = request()->except('_token');
-
-
-        Departamento::insert($datosDepartamento);
-        //return response()->json($datosEmpleado);
-        return redirect('departamento')->with('mensaje','Departamento agregado con éxito');
+        return redirect()->route('departamento.index')
+            ->with('success', 'Departamento created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Departamento  $departamento
+     * @param  int $Codigo
      * @return \Illuminate\Http\Response
      */
-    public function show(Departamento $departamento)
+    public function show($Codigo)
     {
-        //
+        $departamento = Departamento::find($Codigo);
+
+        return view('departamento.show', compact('departamento'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Departamento  $departamento
+     * @param  int $Codigo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Departamento $departamento)
+    public function edit($Codigo)
     {
-        //
+        $departamento = Departamento::find($Codigo);
+
+        return view('departamento.edit', compact('departamento'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Departamento  $departamento
+     * @param  \Illuminate\Http\Request $request
+     * @param  Departamento $departamento
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Departamento $departamento)
     {
-        //
+        request()->validate(Departamento::$rules);
+
+        $departamento->update($request->all());
+
+        return redirect()->route('departamentos.index')
+            ->with('success', 'Departamento updated successfully');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Departamento  $departamento
-     * @return \Illuminate\Http\Response
+     * @param int $Codigo
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(Departamento $departamento)
+    public function destroy($Codigo)
     {
-        //
+        $departamento = Departamento::find($Codigo)->delete();
+
+        return redirect()->route('departamentos.index')
+            ->with('success', 'Departamento deleted successfully');
     }
 }
