@@ -27,6 +27,10 @@ class Departamento extends Model
 {
     protected $table = 'departamento';
 
+    protected $primaryKey = 'Codigo';
+
+    public $incrementing = false;
+
     use SoftDeletes;
 
     static $rules = [

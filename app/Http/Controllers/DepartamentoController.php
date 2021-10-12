@@ -18,8 +18,9 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
+        
         $departamentos = Departamento::paginate();
-
+        //dd($departamentos);
         return view('departamento.index', compact('departamentos'))
             ->with('i', (request()->input('page', 1) - 1) * $departamentos->perPage());
     }
@@ -48,7 +49,7 @@ class DepartamentoController extends Controller
         $departamento = Departamento::create($request->all());
 
         return redirect()->route('departamento.index')
-            ->with('success', 'Departamento created successfully.');
+            ->with('success', 'Departamento creado con éxito.');
     }
 
     /**
@@ -67,11 +68,12 @@ class DepartamentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $Codigo
+     * @param  varchar $Codigo
      * @return \Illuminate\Http\Response
      */
     public function edit($Codigo)
     {
+        //dd($Codigo);
         $departamento = Departamento::find($Codigo);
 
         return view('departamento.edit', compact('departamento'));
@@ -90,20 +92,20 @@ class DepartamentoController extends Controller
 
         $departamento->update($request->all());
 
-        return redirect()->route('departamentos.index')
-            ->with('success', 'Departamento updated successfully');
+        return redirect()->route('departamento.index')
+            ->with('success', 'Departamento actualizado con éxito');
     }
 
     /**
-     * @param int $Codigo
+     * @param varchar $Codigo
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy($Codigo)
     {
-        $departamento = Departamento::find($Codigo)->delete();
+        $departamento = Departamento::find($Codigo)->forceDelete();
 
-        return redirect()->route('departamentos.index')
-            ->with('success', 'Departamento deleted successfully');
+        return redirect()->route('departamento.index')
+            ->with('success', 'Departamento eliminado con éxito');
     }
 }

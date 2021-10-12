@@ -18,7 +18,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('departamento.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nuevo Departamento') }}
                                 </a>
                               </div>
                         </div>
@@ -53,8 +53,8 @@
 											<td>{{ $departamento->Trimmed }}</td>
 
                                             <td>
-                                                <form action="" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href=""><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                <form action="{{ route('departamento.destroy', ['departamento'=>$departamento->Codigo]) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('departamento.show',$departamento->Codigo) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ url('/departamento/'.$departamento->Codigo.'/edit') }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
