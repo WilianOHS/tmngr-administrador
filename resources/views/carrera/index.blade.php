@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Departamento
+    Carrera
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Departamento') }}
+                                {{ __('Carrera') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('departamento.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Crear Nuevo Departamento') }}
+                                <a href="{{ route('carrera.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Crear nueva carrera') }}
                                 </a>
                               </div>
                         </div>
@@ -36,26 +36,26 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Codigo</th>
+										<th>Id Carrera</th>
 										<th>Nombre</th>
-										<th>Trimmed</th>
+										<th>Departamento Id</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($departamentos as $departamento)
+                                    @foreach ($carreras as $carrera)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $departamento->Codigo }}</td>
-											<td>{{ $departamento->Nombre }}</td>
-											<td>{{ $departamento->Trimmed }}</td>
+											<td>{{ $carrera->id_carrera }}</td>
+											<td>{{ $carrera->nombre }}</td>
+											<td>{{ $carrera->departamento_id }}</td>
 
                                             <td>
-                                                <form action="{{ route('departamento.destroy', ['departamento'=>$departamento->Codigo]) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('departamento.show',$departamento->Codigo) }}"><i class="fa fa-fw fa-eye"></i> Ver Departamento</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ url('/departamento/'.$departamento->Codigo.'/edit') }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
+                                                <form action="{{ route('carrera.destroy',['carrera'=>$carrera->id_carrera])}}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('carrera.show',$carrera->id_carrera) }}"><i class="fa fa-fw fa-eye"></i> Ver Carrera</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('carrera.edit',$carrera->id_carrera) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $departamentos->links() !!}
+                {!! $carreras->links() !!}
             </div>
         </div>
     </div>

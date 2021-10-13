@@ -26,3 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('departamento', DepartamentoController::class);
 
+Route::resource('carrera', App\Http\Controllers\CarreraController::class);
+
