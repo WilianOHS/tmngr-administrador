@@ -28,3 +28,7 @@ Route::resource('departamento', DepartamentoController::class);
 
 Route::resource('carrera', App\Http\Controllers\CarreraController::class);
 
+Route::resource('grupo', App\Http\Controllers\GrupoController::class);
+
+Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+
